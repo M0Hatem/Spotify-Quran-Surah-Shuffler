@@ -10,7 +10,7 @@ import os
 import json
 
 # --- Configuration ---
-PODCAST_URI = 'spotify:show:2LLRRGmC6yuXZoyyd8JCq2' # إيه المشكلة؟ - محمد الغليظ
+PODCAST_URI = 'spotify:show:2LLRRGmC6yuXZoyyd8JCq2' 
 CACHE_FILENAME = 'episodes_cache.json'
 
 # --- Step 1: Spotify API Credentials ---

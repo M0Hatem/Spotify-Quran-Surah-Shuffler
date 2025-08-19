@@ -12,7 +12,7 @@ import json # <-- To handle the cache file
 
 # --- Configuration ---
 # The URI of the podcast you want to shuffle.
-PODCAST_URI = 'spotify:show:2LLRRGmC6yuXZoyyd8JCq2' # إيه المشكلة؟ - محمد الغليظ
+PODCAST_URI = 'spotify:show:2LLRRGmC6yuXZoyyd8JCq2' 
 # The file where the episode list will be stored.
 CACHE_FILENAME = 'episodes_cache.json'
 
