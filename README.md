@@ -1,117 +1,85 @@
-# **Spotify Quran Surah Shuffler**
+## How the Script Works
 
-A simple Python script to help you listen to a random Surah from your favorite Quran podcast on Spotify. Since Spotify doesn't offer a shuffle feature for podcasts, this tool fetches all episodes (Surahs), picks one at random, and helps you play it.
+The script addresses the lack of a shuffle feature for podcasts on Spotify. It works by fetching all episodes of a specified podcast, picking one at random, and then either opening it in your web browser (for free accounts) or playing it directly on a device (for premium accounts). It also includes caching and auto-update features to make subsequent runs faster.
 
-It's optimized to be fast after the first run by caching the list of Surahs locally and only checking for new ones when you run it.
+-----
 
-## **❓ Which Script Should I Use?**
+## 🚀 Setup Guide
 
-This project includes two scripts. Choose the one that matches your Spotify account type.
+### 1\. Prerequisites
 
-* **QuranPicker.py (For Free Users):**  
-  * Picks a random Surah and **opens it in your web browser**.  
-  * You just need to press play in the new browser tab.  
-  * Perfect for users with a **Free Spotify account**.  
-* **QuranPicker\_Premium.py (For Premium Users):**  
-  * Picks a random Surah and **plays it directly** on one of your active Spotify devices (your computer, phone, etc.).  
-  * Requires a **Spotify Premium account** due to API limitations.
+You need to have **Python 3** installed on your computer. You can check your version by running `python3 --version` in your terminal. If you don't have it, download it from [python.org](https://www.python.org/downloads/).
 
-## **✨ Features**
+### 2\. Installation
 
-* **True Random Shuffle:** Picks a truly random Surah from the entire podcast archive.  
-* **Smart Caching:** After the first run, the script saves the episode list locally, making subsequent runs almost instant.  
-* **Automatic Updates:** Automatically checks for and adds any newly released Surahs to your local list.  
-* **Direct Playback (Premium):** Instantly plays the selected Surah on your active device.
+First, download the script files, then install the required `spotipy` Python library by running this command in your terminal:
 
-## **🚀 Setup Guide**
-
-Follow these steps to get the script up and running on your machine.
-
-### **1\. Prerequisites**
-
-* **Python 3:** Make sure you have Python 3 installed. You can check by opening your terminal and running python3 \--version. If you don't have it, you can download it from [python.org](https://www.python.org/downloads/).
-
-### **2\. Installation**
-
-First, download the script files to a folder on your computer. Then, install the required Python library, spotipy:
-
+```bash
 pip3 install spotipy
+```
 
-### **3\. Spotify API Credentials**
+### 3\. Spotify API Credentials
 
-This script needs to talk to Spotify's API. You'll need to get your own free API keys.
+The script needs to access the Spotify API. You'll need to create your own app to get the credentials.
 
-1. Go to the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/) and log in.  
-2. Click **"Create App"**.  
-3. Give it a name (e.g., "Quran Shuffler") and a description. Check the boxes to agree to the terms.  
-4. Once created, you will see your **Client ID**. Click **"Show client secret"** to see your **Client Secret**. Keep these safe\!  
-5. Now, click **"Edit Settings"**.  
-6. In the **"Redirect URIs"** field, add the following URL exactly as it is:  
-   http://127.0.0.1:9090/callback
+1.  Go to the **Spotify Developer Dashboard** and log in.
+2.  Click **"Create App,"** give it a name and description, and agree to the terms.
+3.  Once created, you'll see your **Client ID**. Click **"Show client secret"** to see your **Client Secret**.
+4.  Click **"Edit Settings"** and add `http://127.0.0.1:9090/callback` to the **"Redirect URIs"** field.
+5.  Click **"Add,"** then **"Save."**
 
-7. Click the **"Add"** button, then scroll down and **"Save"**.
+### 4\. Set Environment Variables
 
-### **4\. Set Environment Variables**
+You should set your API keys as environment variables for security.
 
-To use your API keys securely, you should save them as environment variables.
+#### **On macOS & Linux:**
 
-**On macOS & Linux:**
+1.  Open your terminal.
+2.  Edit your shell's startup file, like `~/.zshrc` (for macOS) or `~/.bashrc` (for Linux) using a text editor like `nano`. For example: `nano ~/.zshrc`.
+3.  Add the following lines to the end of the file, replacing the placeholders with your actual keys:
+    ```bash
+    export SPOTIPY_CLIENT_ID='Your_Client_ID_Here'
+    export SPOTIPY_CLIENT_SECRET='Your_Client_Secret_Here'
+    export SPOTIPY_REDIRECT_URI='http://127.0.0.1:9090/callback'
+    ```
+4.  Save and exit the file. **Close and reopen your terminal** for the changes to take effect.
 
-1. Open your terminal.  
-2. Edit your shell's startup file. This is usually \~/.zshrc (for macOS) or \~/.bashrc (for many Linux distros).  
-   \# For Zsh (default on modern macOS)  
-   nano \~/.zshrc
+#### **On Windows:**
 
-   \# For Bash on Linux  
-   nano \~/.bashrc
+1.  Open the **Command Prompt** (not PowerShell).
+2.  Run these commands one by one, replacing the placeholders with your keys. Use double quotes.
+    ```cmd
+    setx SPOTIPY_CLIENT_ID "Your_Client_ID_Here"
+    setx SPOTIPY_CLIENT_SECRET "Your_Client_Secret_Here"
+    setx SPOTIPY_REDIRECT_URI "http://127.0.0.1:9090/callback"
+    ```
+3.  After a "SUCCESS" message, **close and reopen the Command Prompt** for the changes to take effect.
 
-3. Add the following lines to the end of the file, replacing the placeholder text with your actual keys from the Spotify Dashboard.  
-   export SPOTIPY\_CLIENT\_ID='Your\_Client\_ID\_Here'  
-   export SPOTIPY\_CLIENT\_SECRET='Your\_Client\_Secret\_Here'  
-   export SPOTIPY\_REDIRECT\_URI='http://127.0.0.1:9090/callback'
+-----
 
-4. Save the file (Ctrl+O, then Enter) and exit (Ctrl+X).  
-5. **Important:** Close and reopen your terminal for the changes to take effect.
+## ▶️ How to Use
 
-**On Windows:**
+### 1\. Find the Podcast URI
 
-1. Open the **Command Prompt** (not PowerShell for this command).  
-2. Run the following commands one by one, replacing the placeholder text with your actual keys. Use double quotes.  
-   setx SPOTIPY\_CLIENT\_ID "Your\_Client\_ID\_Here"  
-   setx SPOTIPY\_CLIENT\_SECRET "Your\_Client\_Secret\_Here"  
-   setx SPOTIPY\_REDIRECT\_URI "http://127.0.0.1:9090/callback"
+1.  Open Spotify and go to the podcast you want to shuffle.
+2.  Click the **three dots (...)** menu, then go to **Share** \> **Copy Spotify URI**.
+3.  The URI will look like `spotify:show:0vSL8N2M5W742y3a2gV0u9`.
 
-3. You will see a "SUCCESS" message after each command.  
-4. **Important:** You must close and reopen the Command Prompt window for these changes to take effect.
+### 2\. Update the Script
 
-## **▶️ How to Use**
+Open the script you want to use (`QuranPicker.py` or `QuranPicker_Premium.py`) and replace the placeholder in the `PODCAST_URI` variable with the URI you just copied.
 
-### **1\. Find the Podcast URI**
+```python
+# --- Configuration ---
+# The URI of the podcast you want to shuffle.
+PODCAST_URI = 'spotify:show:YOUR_URI_HERE'
+```
 
-You need to tell the script which podcast to shuffle.
-
-1. Open Spotify and go to the podcast you want (e.g., "المصحف المرتل").  
-2. Click the **three dots (...)** menu.  
-3. Go to **Share** \-\> **Copy Spotify URI**.  
-4. It will look something like this: spotify:show:0vSL8N2M5W742y3a2gV0u9.
-
-### **2\. Update the Script**
-
-Open the script file you plan to use (QuranPicker.py or QuranPicker\_Premium.py) and paste your URI into the PODCAST\_URI variable at the top.
-
-\# \--- Configuration \---  
-\# The URI of the podcast you want to shuffle.  
-PODCAST\_URI \= 'spotify:show:YOUR\_URI\_HERE'
-
-### **3\. Run the Script**
+### 3\. Run the Script
 
 Navigate to the script's folder in your terminal and run the appropriate file:
 
-\# For Free users  
-python3 QuranPicker.py
+  * **For Free users:** `python3 QuranPicker.py`
+  * **For Premium users:** `python3 QuranPicker_Premium.py`
 
-\# For Premium users  
-python3 QuranPicker\_Premium.py
-
-* **First time:** A browser window will open asking you to log in to Spotify and grant permission.  
-* **Every time:** The script will pick a random Surah and either open it in your browser or play it directly, depending on which script you ran. Enjoy\!
+The first time you run it, a browser window will open asking you to log in and grant permission. After that, the script will instantly pick a random Surah and either open it in your browser or play it directly.
